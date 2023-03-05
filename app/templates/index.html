@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+{% import 'bootstrap/wtf.html' as wtf %}
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <div class="col">
+      <div class="row justify-content-center">
+        <h1 class="display-3">Обработка изображения</h1>
+      </div>
+      <form method="post" enctype="multipart/form-data">
+        <div class="row justify-content-center">
+          {{form.csrf_token}}
+          {{form.upload}}
+          {{form.select_swap_method}}
+        </div>
+        <div class="row justify-content-center">
+          {{form.recaptcha}}
+        </div>
+        <div class="row justify-content-center">
+          {{ form.submit | safe }}
+        </div>
+      </form>
+    </div>
+    <div class="row justify-content-center">
+    </div>
+    {% if original_image %}
+    <div class="row justify-content-center">
+      <h3>Исходное</h3>
+    </div>
+    <div class="row justify-content-center">
+      <a href="{{ original_image }}">
+        <img style="height: 100%; width: 100%" src="{{ original_image }}" class="img-rounded" alt="Source" />
+      </a>
+      {% else %}
+      <div class="row justify-content-center">
+        <p>Изображение не добавлено</p>
+      </div>
+      {% endif %}
+    </div>
+    {% if render_image %}
+    <div class="row justify-content-center">
+      <h3>Обработанное</h3>
+    </div>
+    <div class="row justify-content-center">
+      <a href="{{ render_image }}">
+        <img style="height: 100%; width: 100%" src="{{ render_image }}" class="img-rounded" alt="Proc" />
+      </a>
+      {% else %}
+      <div class="row justify-content-center">
+        <p>Изображение не обработано</p>
+      </div>
+    </div>
+    {% endif %}
+    {% if color_image %}
+    <div class="row justify-content-center">
+      <h3>Распределение цветов исходного изображения</h3>
+      <a href="{{ color_image }}">
+        <img style="height: 80%; width: 80%" src="{{ color_image }}" class="img-rounded" alt="Proc" />
+      </a>
+    </div>
+  </div>
+  {% endif %}
+  </div>
+</body>
+</html>
